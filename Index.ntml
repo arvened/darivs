@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DARIVS — Добро трапляється</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Chakra+Petch:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background: #080a18;
+  color: #f0ede6;
+  font-family: 'Chakra Petch', monospace;
+  overflow-x: hidden;
+}
+nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 22px 40px;
+  background: #080a18;
+  border-bottom: 1px solid rgba(212,175,55,0.2);
+  position: sticky; top: 0; z-index: 100;
+}
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 600;
+  color: #d4af37; letter-spacing: 7px;
+  text-decoration: none;
+}
+.nav-links { display:flex; gap:28px; list-style:none; }
+.nav-links a { color: #7a6fa0; text-decoration:none; font-size:.64rem; letter-spacing:3px; text-transform:uppercase; transition:color .3s; }
+.nav-links a:hover { color: #d4af37; }
+.nav-cta { border:1px solid #d4af37 !important; color:#d4af37 !important; padding:7px 18px; }
+.nav-cta:hover { background:#d4af37 !important; color:#080a18 !important; }
+
+.hero {
+  background: linear-gradient(180deg, #0e0a2e 0%, #080a18 100%);
+  padding: 80px 40px;
+  min-height: 88vh;
+  display: flex; flex-direction: column; justify-content: center;
+  max-width: 1000px; margin: 0 auto;
+}
+.eyebrow { display:flex; align-items:center; gap:12px; font-size:.62rem; letter-spacing:5px; color:#d4af37; text-transform:uppercase; margin-bottom:28px; }
+.eyebrow::before { content:''; width:32px; height:1px; background:#d4af37; }
+.hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(3.5rem,9vw,7rem); font-weight:300; line-height:1.02; color:#f0ede6; margin-bottom:8px; }
+.hero h1 em { font-style:italic; color:#d4af37; }
+.hero-sub { font-size:clamp(.82rem,1.6vw,1rem); letter-spacing:5px; text-transform:uppercase; color:#7a6fa0; font-weight:300; margin-bottom:36px; }
+.hero-body { font-size:.92rem; line-height:1.9; color:#a89cc0; max-width:540px; font-weight:300; margin-bottom:48px; }
+.hero-body strong { color:#d4af37; font-weight:600; }
+.hero-btns { display:flex; gap:14px; flex-wrap
