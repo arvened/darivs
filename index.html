@@ -1,320 +1,533 @@
-
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="uk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DARIVS — Добро трапляється</title>
+<title>DARIVS — Social Impact Prediction Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Chakra+Petch:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body {
-background: #080a18;
-color: #f0ede6;
-font-family: 'Chakra Petch', monospace;
-overflow-x: hidden;
+  background: #000000;
+  color: #ffffff;
+  font-family: 'Chakra Petch', monospace;
+  overflow-x: hidden;
 }
+
+/* LANG SWITCHER */
+.lang-en { display: none; }
+body.en .lang-uk { display: none; }
+body.en .lang-en { display: block; }
+body.en .lang-en-inline { display: inline; }
+body.en .lang-uk-inline { display: none; }
+.lang-en-inline { display: none; }
+.lang-uk-inline { display: inline; }
+
+/* VIOLET GLOW */
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 1000px; height: 800px;
+  background: radial-gradient(ellipse,
+    rgba(80,30,150,0.75) 0%,
+    rgba(60,25,110,0.45) 35%,
+    transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(212,175,55,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,175,55,0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  pointer-events: none; z-index: 0;
+}
+
+nav, section, div.band, div.stat-bar, div.contact-wrap, footer { position: relative; z-index: 1; }
+
+/* NAV */
 nav {
-display: flex; justify-content: space-between; align-items: center;
-padding: 22px 40px;
-background: #080a18;
-border-bottom: 1px solid rgba(212,175,55,0.2);
-position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 40px;
+  background: rgba(0,0,5,0.99);
+  border-bottom: 1px solid rgba(138,74,255,0.25);
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(16px);
 }
 .logo {
-font-family: 'Cormorant Garamond', serif;
-font-size: 1.6rem; font-weight: 600;
-color: #d4af37; letter-spacing: 7px;
-text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem; font-weight: 600;
+  color: #ffd700; letter-spacing: 7px;
+  text-decoration: none;
+  text-shadow: 0 0 20px rgba(255,215,0,0.9), 0 0 40px rgba(255,215,0,0.5);
 }
-.nav-links { display:flex; gap:28px; list-style:none; }
-.nav-links a { color: #7a6fa0; text-decoration:none; font-size:.64rem; letter-spacing:3px; text-transform:uppercase; transition:color .3s; }
-.nav-links a:hover { color: #d4af37; }
-.nav-cta { border:1px solid #d4af37 !important; color:#d4af37 !important; padding:7px 18px; }
-.nav-cta:hover { background:#d4af37 !important; color:#080a18 !important; }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+.nav-links { display: flex; gap: 24px; list-style: none; }
+.nav-links a {
+  color: #d4b8ff; text-decoration: none;
+  font-size: .64rem; letter-spacing: 3px; text-transform: uppercase;
+  transition: color .3s;
+}
+.nav-links a:hover { color: #ffd700; }
+.lang-btn {
+  background: rgba(90,46,159,0.3);
+  border: 1px solid rgba(138,74,255,0.4);
+  color: #ffd700; padding: 6px 14px;
+  font-family: 'Chakra Petch', monospace;
+  font-size: .62rem; letter-spacing: 3px;
+  cursor: pointer; transition: all .3s;
+}
+.lang-btn:hover { background: rgba(90,46,159,0.6); }
 
+/* HERO */
 .hero {
-background: linear-gradient(180deg, #0e0a2e 0%, #080a18 100%);
-padding: 80px 40px;
-min-height: 88vh;
-display: flex; flex-direction: column; justify-content: center;
-max-width: 1000px; margin: 0 auto;
+  min-height: 90vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 40px;
+  max-width: 1000px; margin: 0 auto;
+  background: radial-gradient(ellipse at 40% 50%, rgba(90,46,159,0.2) 0%, transparent 60%);
 }
-.eyebrow { display:flex; align-items:center; gap:12px; font-size:.62rem; letter-spacing:5px; color:#d4af37; text-transform:uppercase; margin-bottom:28px; }
-.eyebrow::before { content:''; width:32px; height:1px; background:#d4af37; }
-.hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(3.5rem,9vw,7rem); font-weight:300; line-height:1.02; color:#f0ede6; margin-bottom:8px; }
-.hero h1 em { font-style:italic; color:#d4af37; }
-.hero-sub { font-size:clamp(.82rem,1.6vw,1rem); letter-spacing:5px; text-transform:uppercase; color:#7a6fa0; font-weight:300; margin-bottom:36px; }
-.hero-body { font-size:.92rem; line-height:1.9; color:#a89cc0; max-width:540px; font-weight:300; margin-bottom:48px; }
-.hero-body strong { color:#d4af37; font-weight:600; }
-.hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+.eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font-size: .62rem; letter-spacing: 5px;
+  color: #ffd700; text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.eyebrow::before { content: ''; width: 32px; height: 1px; background: #d4af37; }
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.2rem, 9vw, 7rem);
+  font-weight: 300; line-height: 1.02;
+  color: #ffffff; margin-bottom: 8px;
+  text-shadow: 0 0 30px rgba(180,100,255,0.5), 0 4px 40px rgba(90,46,159,0.6);
+}
+.hero h1 em {
+  font-style: italic; color: #ffd700;
+  text-shadow: 0 0 20px rgba(255,215,0,1), 0 0 50px rgba(255,215,0,0.6);
+}
+.hero-sub {
+  font-size: clamp(.82rem, 1.6vw, 1.05rem);
+  letter-spacing: 5px; text-transform: uppercase;
+  color: #d4b8ff; font-weight: 300; margin-bottom: 36px;
+}
+.hero-body {
+  font-size: .94rem; line-height: 1.9;
+  color: rgba(240,237,230,0.68);
+  max-width: 560px; font-weight: 300; margin-bottom: 48px;
+}
+.hero-body strong { color: #ffd700; font-weight: 600; }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
 
-.btn { font-family:'Chakra Petch',monospace; font-size:.7rem; letter-spacing:3px; text-transform:uppercase; padding:13px 32px; text-decoration:none; transition:all .25s; display:inline-block; cursor:pointer; border:none; }
-.btn-gold { background:#d4af37; color:#080a18; font-weight:600; }
-.btn-gold:hover { background:#f0cc55; transform:translateY(-2px); }
-.btn-outline { border:1px solid rgba(212,175,55,0.4); color:#d4af37; background:transparent; }
-.btn-outline:hover { border-color:#d4af37; background:rgba(212,175,55,0.08); }
+.btn {
+  font-family: 'Chakra Petch', monospace;
+  font-size: .7rem; letter-spacing: 3px; text-transform: uppercase;
+  padding: 13px 32px; text-decoration: none;
+  transition: all .25s; display: inline-block; cursor: pointer; border: none;
+}
+.btn-gold {
+  background: linear-gradient(135deg, #d4af37, #f0cc55);
+  color: #06041a; font-weight: 600;
+  box-shadow: 0 4px 24px rgba(212,175,55,0.35);
+}
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(212,175,55,0.5); }
+.btn-outline {
+  border: 1px solid rgba(138,74,255,0.5); color: #d4b8ff;
+  background: rgba(90,46,159,0.15);
+}
+.btn-outline:hover { border-color: #ffd700; color: #ffd700; background: rgba(90,46,159,0.3); }
 
-.stat-bar { background:#0e0a2e; border-top:1px solid rgba(212,175,55,0.15); border-bottom:1px solid rgba(212,175,55,0.15); padding:24px 40px; display:flex; gap:48px; overflow-x:auto; }
-.stat { flex-shrink:0; }
-.stat-num { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:600; color:#d4af37; line-height:1; }
-.stat-lbl { font-size:.58rem; letter-spacing:3px; color:#7a6fa0; text-transform:uppercase; margin-top:4px; }
+/* STAT BAR */
+.stat-bar {
+  background: rgba(0,0,5,1);
+  border-top: 1px solid rgba(138,74,255,0.25);
+  border-bottom: 1px solid rgba(138,74,255,0.25);
+  padding: 24px 40px; display: flex; gap: 48px; overflow-x: auto;
+}
+.stat { flex-shrink: 0; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.1rem; font-weight: 600; color: #ffd700; line-height: 1;
+  text-shadow: 0 0 15px rgba(255,215,0,0.9), 0 0 35px rgba(255,215,0,0.5);
+}
+.stat-lbl { font-size: .58rem; letter-spacing: 3px; color: #d4b8ff; text-transform: uppercase; margin-top: 4px; }
 
-.wrap { max-width:1000px; margin:0 auto; padding:80px 40px; }
-.sec-tag { font-size:.58rem; letter-spacing:5px; color:#d4af37; text-transform:uppercase; margin-bottom:14px; }
-.sec-title { font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:300; line-height:1.2; margin-bottom:48px; color:#f0ede6; }
-.sec-title em { font-style:italic; color:#d4af37; }
+/* SECTIONS */
+.section { max-width: 1000px; margin: 0 auto; padding: 80px 40px; }
+.sec-tag { font-size: .58rem; letter-spacing: 5px; color: #ffd700; text-transform: uppercase; margin-bottom: 14px; }
+.sec-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,4vw,3rem); font-weight: 300; line-height: 1.2; margin-bottom: 48px; }
+.sec-title em { font-style: italic; color: #ffd700; }
 
-.grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:2px; }
-.card { background:#12103a; border:1px solid rgba(74,47,160,0.4); padding:32px 26px; transition:border-color .3s,background .3s; }
-.card:hover { background:#1a1550; border-color:rgba(212,175,55,0.3); }
-.card-icon { font-size:1.8rem; margin-bottom:14px; }
-.card-title { font-size:.78rem; font-weight:500; letter-spacing:2px; color:#d4af37; margin-bottom:10px; text-transform:uppercase; }
-.card-text { font-size:.76rem; line-height:1.75; color:#8a7db8; font-weight:300; }
+/* CARDS */
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 2px; }
+.card {
+  background: linear-gradient(145deg, rgba(55,25,100,0.7) 0%, rgba(8,4,25,0.98) 100%);
+  border: 1px solid rgba(138,74,255,0.3);
+  padding: 32px 26px; transition: all .3s;
+}
+.card:hover { border-color: rgba(212,175,55,0.4); background: linear-gradient(145deg, rgba(90,46,159,0.65) 0%, rgba(40,20,80,0.9) 100%); transform: translateY(-3px); }
+.card-icon { font-size: 1.8rem; margin-bottom: 14px; }
+.card-title { font-size: .78rem; font-weight: 500; letter-spacing: 2px; color: #ffd700; margin-bottom: 10px; text-transform: uppercase; }
+.card-text { font-size: .76rem; line-height: 1.75; color: #d4b8ff; font-weight: 300; }
 
-.steps { display:flex; flex-direction:column; gap:2px; }
-.step { background:#12103a; border:1px solid rgba(74,47,160,0.4); padding:28px 32px; display:grid; grid-template-columns:56px 1fr; gap:20px; align-items:start; transition:background .3s,border-color .3s; }
-.step:hover { background:#1a1550; border-color:rgba(212,175,55,0.25); }
-.step-n { font-family:'Cormorant Garamond',serif; font-size:2.4rem; font-weight:600; color:rgba(212,175,55,0.22); line-height:1; }
-.step-title { font-size:.82rem; font-weight:500; letter-spacing:2px; color:#f0ede6; margin-bottom:7px; text-transform:uppercase; }
-.step-desc { font-size:.76rem; line-height:1.75; color:#8a7db8; font-weight:300; }
+/* SPLIT */
+.split-section {
+  background: linear-gradient(135deg, rgba(61,31,109,0.5) 0%, rgba(20,10,50,0.8) 100%);
+  border: 1px solid rgba(138,74,255,0.3);
+  padding: 52px; text-align: center; max-width: 750px; margin: 0 auto;
+}
+.split-title { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; color: #ffd700; margin-bottom: 32px; }
+.split-row { display: flex; justify-content: center; gap: 0; margin-bottom: 24px; flex-wrap: wrap; }
+.split-item {
+  padding: 24px 32px;
+  border: 1px solid rgba(138,74,255,0.35);
+  background: rgba(90,46,159,0.2);
+  min-width: 130px; transition: all .3s;
+}
+.split-item:hover { background: rgba(90,46,159,0.4); border-color: rgba(212,175,55,0.4); }
+.split-pct { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 600; color: #ffd700; line-height: 1; text-shadow: 0 0 15px rgba(255,215,0,0.9), 0 0 35px rgba(255,215,0,0.5); }
+.split-lbl { font-size: .58rem; letter-spacing: 2px; color: #d4b8ff; text-transform: uppercase; margin-top: 8px; }
+.split-note { font-size: .76rem; color: rgba(155,127,212,0.8); line-height: 1.75; font-weight: 300; }
 
-.band { background:#0e0a2e; border-top:1px solid rgba(212,175,55,0.18); border-bottom:1px solid rgba(212,175,55,0.18); padding:72px 40px; text-align:center; }
-.formula { font-family:'Cormorant Garamond',serif; font-size:clamp(1.4rem,3vw,2.5rem); font-weight:300; line-height:1.55; color:#f0ede6; max-width:700px; margin:0 auto 16px; }
-.formula strong { color:#d4af37; font-weight:600; }
-.formula-note { font-size:.6rem; letter-spacing:4px; color:#7a6fa0; text-transform:uppercase; }
+/* BAND */
+.band {
+  background: rgba(5,0,15,0.98);
+  border-top: 1px solid rgba(138,74,255,0.4);
+  border-bottom: 1px solid rgba(138,74,255,0.4);
+  padding: 72px 40px; text-align: center;
+}
+.formula { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem,3vw,2.5rem); font-weight: 300; line-height: 1.55; color: #ffffff; max-width: 700px; margin: 0 auto 16px; }
+.formula strong { color: #ffd700; font-weight: 600; text-shadow: 0 0 30px rgba(212,175,55,0.3); }
+.formula-note { font-size: .62rem; letter-spacing: 4px; color: #d4b8ff; text-transform: uppercase; }
 
-.partners-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:2px; }
-.partner { background:#12103a; border:1px solid rgba(74,47,160,0.4); padding:28px 24px; transition:all .3s; }
-.partner:hover { background:#1a1550; border-color:rgba(212,175,55,0.3); }
-.partner-country { font-size:.58rem; letter-spacing:4px; color:#d4af37; text-transform:uppercase; margin-bottom:10px; }
-.partner-name { font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:#f0ede6; margin-bottom:6px; }
-.partner-desc { font-size:.72rem; line-height:1.7; color:#8a7db8; font-weight:300; }
+/* PARTNERS */
+.partners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 2px; }
+.partner {
+  background: linear-gradient(145deg, rgba(61,31,109,0.5) 0%, rgba(20,10,50,0.85) 100%);
+  border: 1px solid rgba(138,74,255,0.3);
+  padding: 28px 24px; transition: all .3s;
+}
+.partner:hover { border-color: rgba(212,175,55,0.35); transform: translateY(-2px); }
+.partner-country { font-size: .58rem; letter-spacing: 4px; color: #ffd700; text-transform: uppercase; margin-bottom: 10px; }
+.partner-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: #ffffff; margin-bottom: 6px; }
+.partner-desc { font-size: .72rem; line-height: 1.7; color: #d4b8ff; font-weight: 300; }
 
-.split-box { background:#12103a; border:1px solid rgba(212,175,55,0.25); padding:44px; text-align:center; max-width:700px; margin:0 auto; }
-.split-title { font-family:'Cormorant Garamond',serif; font-size:1.8rem; color:#d4af37; margin-bottom:28px; }
-.split-row { display:flex; justify-content:center; gap:0; margin-bottom:20px; }
-.split-item { padding:20px 28px; border:1px solid rgba(74,47,160,0.4); min-width:120px; }
-.split-pct { font-family:'Cormorant Garamond',serif; font-size:2.4rem; font-weight:600; color:#d4af37; line-height:1; }
-.split-lbl { font-size:.58rem; letter-spacing:2px; color:#7a6fa0; text-transform:uppercase; margin-top:6px; }
-.split-note { font-size:.72rem; color:#8a7db8; line-height:1.7; font-weight:300; }
+/* STEPS */
+.steps { display: flex; flex-direction: column; gap: 2px; }
+.step {
+  background: linear-gradient(135deg, rgba(61,31,109,0.45) 0%, rgba(20,10,50,0.85) 100%);
+  border: 1px solid rgba(138,74,255,0.3);
+  padding: 28px 32px; display: grid;
+  grid-template-columns: 56px 1fr; gap: 20px; align-items: start;
+  transition: all .3s;
+}
+.step:hover { border-color: rgba(212,175,55,0.3); background: linear-gradient(135deg, rgba(90,46,159,0.5) 0%, rgba(40,20,80,0.85) 100%); }
+.step-n { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 600; color: rgba(212,175,55,0.25); line-height: 1; }
+.step-title { font-size: .82rem; font-weight: 500; letter-spacing: 2px; color: #ffffff; margin-bottom: 7px; text-transform: uppercase; }
+.step-desc { font-size: .76rem; line-height: 1.75; color: #d4b8ff; font-weight: 300; }
 
-.pilot { background:#12103a; border:1px solid rgba(212,175,55,0.25); padding:52px 40px; text-align:center; max-width:700px; margin:0 auto; }
-.diamond { width:11px; height:11px; background:#d4af37; transform:rotate(45deg); margin:0 auto 24px; }
-.pilot-title { font-family:'Cormorant Garamond',serif; font-size:2rem; color:#d4af37; margin-bottom:16px; font-weight:400; }
-.pilot-desc { font-size:.86rem; line-height:1.8; color:#a89cc0; margin:0 auto 26px; max-width:440px; font-weight:300; }
-.pilot-list { list-style:none; text-align:left; display:inline-flex; flex-direction:column; gap:10px; margin-bottom:30px; }
-.pilot-list li { font-size:.8rem; color:#c0b4d8; padding-left:20px; position:relative; line-height:1.6; }
-.pilot-list li::before { content:'→'; position:absolute; left:0; color:#d4af37; }
+/* CONTACT */
+.contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; max-width: 1000px; margin: 0 auto; padding: 80px 40px; }
+.c-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,3.5vw,2.8rem); font-weight: 300; line-height: 1.2; margin-bottom: 16px; }
+.c-title em { font-style: italic; color: #ffd700; }
+.c-desc { font-size: .82rem; line-height: 1.85; color: #d4b8ff; font-weight: 300; margin-bottom: 28px; }
+.clinks { display: flex; flex-direction: column; gap: 10px; }
+.clink {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 16px;
+  background: linear-gradient(135deg, rgba(61,31,109,0.4) 0%, rgba(20,10,50,0.8) 100%);
+  border: 1px solid rgba(138,74,255,0.3);
+  text-decoration: none; color: #ffffff;
+  font-size: .78rem; letter-spacing: 1px; transition: all .25s;
+}
+.clink:hover { border-color: #ffd700; color: #ffd700; background: linear-gradient(135deg, rgba(90,46,159,0.5) 0%, rgba(40,20,80,0.8) 100%); }
+.clbl { font-size: .56rem; letter-spacing: 3px; color: #ffd700; min-width: 64px; text-transform: uppercase; }
 
-.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; max-width:1000px; margin:0 auto; padding:80px 40px; }
-.c-title { font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,3.5vw,2.8rem); font-weight:300; line-height:1.2; margin-bottom:16px; color:#f0ede6; }
-.c-title em { font-style:italic; color:#d4af37; }
-.c-desc { font-size:.82rem; line-height:1.85; color:#8a7db8; font-weight:300; margin-bottom:28px; }
-.clinks { display:flex; flex-direction:column; gap:8px; }
-.clink { display:flex; align-items:center; gap:14px; padding:13px 16px; background:#12103a; border:1px solid rgba(74,47,160,0.35); text-decoration:none; color:#f0ede6; font-size:.78rem; letter-spacing:1px; transition:all .25s; }
-.clink:hover { border-color:#d4af37; color:#d4af37; background:#1a1550; }
-.clbl { font-size:.56rem; letter-spacing:3px; color:#b8941f; min-width:64px; text-transform:uppercase; }
-
-footer { background:#080a18; border-top:1px solid rgba(212,175,55,0.15); padding:28px 40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
-.f-logo { font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:#d4af37; letter-spacing:7px; }
-.f-tag { font-size:.58rem; letter-spacing:4px; color:#7a6fa0; text-transform:uppercase; margin-top:4px; }
-.f-info { font-size:.58rem; color:rgba(122,111,160,0.45); letter-spacing:2px; text-align:right; line-height:2; }
+/* FOOTER */
+footer {
+  background: rgba(0,0,5,1);
+  border-top: 1px solid rgba(138,74,255,0.2);
+  padding: 28px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;
+}
+.f-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #ffd700; letter-spacing: 7px; text-shadow: 0 0 15px rgba(255,215,0,0.9), 0 0 35px rgba(255,215,0,0.5); }
+.f-tag { font-size: .58rem; letter-spacing: 4px; color: #d4b8ff; text-transform: uppercase; margin-top: 5px; }
+.f-info { font-size: .58rem; color: rgba(180,150,255,0.7); letter-spacing: 2px; text-align: right; line-height: 2; }
 
 @media(max-width:700px){
-nav{padding:14px 20px;} .nav-links{display:none;}
-.hero,.wrap{padding:52px 20px;}
-.stat-bar{padding:18px 20px;gap:28px;}
-.band{padding:52px 20px;}
-.pilot,.split-box{padding:36px 20px;}
-.split-row{flex-wrap:wrap;}
-.contact-grid{grid-template-columns:1fr;padding:52px 20px;gap:40px;}
-footer{padding:22px 20px;} .f-info{text-align:left;}
+  nav{padding:14px 20px;} .nav-links{display:none;}
+  .hero,.section{padding:52px 20px;}
+  .stat-bar{padding:18px 20px;gap:28px;}
+  .band{padding:52px 20px;}
+  .split-section{padding:36px 20px;}
+  .contact-wrap{grid-template-columns:1fr;padding:52px 20px;gap:40px;}
+  footer{padding:22px 20px;} .f-info{text-align:left;}
 }
 </style>
 </head>
-<body>
+<body id="body">
 
 <nav>
-<a href="#" class="logo">DARIVS</a>
-<ul class="nav-links">
-<li><a href="#what">Що це</a></li>
-<li><a href="#how">Як працює</a></li>
-<li><a href="#partners">Партнери</a></li>
-<li><a href="#contact" class="nav-cta">Зв'язатись</a></li>
-</ul>
+  <a href="#" class="logo">DARIVS</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#how" class="lang-uk-inline">Як це працює</a><a href="#how" class="lang-en-inline">How It Works</a></li>
+      <li><a href="#split" class="lang-uk-inline">Модель</a><a href="#split" class="lang-en-inline">Model</a></li>
+      <li><a href="#partners" class="lang-uk-inline">Партнери</a><a href="#partners" class="lang-en-inline">Partners</a></li>
+      <li><a href="#contact" class="lang-uk-inline">Контакт</a><a href="#contact" class="lang-en-inline">Contact</a></li>
+    </ul>
+    <button class="lang-btn" onclick="toggleLang()">EN / UA</button>
+  </div>
 </nav>
 
-<div class="hero">
-<div class="eyebrow">Київ, Україна · 2026</div>
-<h1>DARIVS<br><em>Добро трапляється</em></h1>
-<p class="hero-sub">Соціальна платформа добрих вчинків</p>
-<p class="hero-body">
-Люди беруть участь у <strong>добрих викликах</strong> —
-і збирають кошти для благодійних фондів України.
-Не просто донат. Дія. Виклик. Спільнота.<br><br>
-Єдина платформа з трьома китами:
-<strong>соцлента + донати + вклики.</strong>
-</p>
-<div class="hero-btns">
-<a href="#contact" class="btn btn-gold">Стати партнером</a>
-<a href="#how" class="btn btn-outline">Як це працює</a>
-</div>
-</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow">
+    <span class="lang-uk-inline">Київ, Україна · 2026</span>
+    <span class="lang-en-inline">Kyiv, Ukraine · 2026</span>
+  </div>
+  <h1>DARIVS<br><em class="lang-uk-inline">Добро трапляється</em><em class="lang-en-inline">Good Just Happens</em></h1>
+  <p class="hero-sub">
+    <span class="lang-uk-inline">Соціальна платформа прогнозування</span>
+    <span class="lang-en-inline">Social Impact Prediction Platform</span>
+  </p>
 
+  <div class="lang-uk">
+    <p class="hero-body">
+      Беріть участь у <strong>добрих викликах</strong> —
+      аналізуйте події, допомагайте благодійним фондам
+      і отримуйте винагороду за точність аналізу.<br><br>
+      Не азартні ігри — <strong>гра навичок з соціальним впливом.</strong>
+    </p>
+  </div>
+  <div class="lang-en">
+    <p class="hero-body">
+      Participate in <strong>social challenges</strong> —
+      analyze events, support charitable funds,
+      and earn rewards for analytical accuracy.<br><br>
+      Not gambling — <strong>a Game of Skill with social impact.</strong>
+    </p>
+  </div>
+
+  <div class="hero-btns">
+    <a href="#contact" class="btn btn-gold">
+      <span class="lang-uk-inline">Стати партнером</span>
+      <span class="lang-en-inline">Become a Partner</span>
+    </a>
+    <a href="#how" class="btn btn-outline">
+      <span class="lang-uk-inline">Як це працює</span>
+      <span class="lang-en-inline">How It Works</span>
+    </a>
+  </div>
+</section>
+
+<!-- STATS -->
 <div class="stat-bar">
-<div class="stat"><div class="stat-num">3</div><div class="stat-lbl">Благодійних партнери</div></div>
-<div class="stat"><div class="stat-num">EU + UA</div><div class="stat-lbl">Ринки</div></div>
-<div class="stat"><div class="stat-num">55%</div><div class="stat-lbl">Переможцю виклику</div></div>
-<div class="stat"><div class="stat-num">35%</div><div class="stat-lbl">До благодійного фонду</div></div>
+  <div class="stat"><div class="stat-num">50%</div><div class="stat-lbl lang-uk-inline">Переможцю</div><div class="stat-lbl lang-en-inline">To Winner</div></div>
+  <div class="stat"><div class="stat-num">35%</div><div class="stat-lbl lang-uk-inline">Благодійному фонду</div><div class="stat-lbl lang-en-inline">To Charity Fund</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-lbl lang-uk-inline">Партнерські фонди</div><div class="stat-lbl lang-en-inline">Partner Funds</div></div>
+  <div class="stat"><div class="stat-num">EU+UA</div><div class="stat-lbl lang-uk-inline">Ринки</div><div class="stat-lbl lang-en-inline">Markets</div></div>
 </div>
 
-<div class="wrap" id="what">
-<div class="sec-tag">Проблема</div>
-<h2 class="sec-title">Чому люди не донатять<br><em>так часто як могли б</em></h2>
-<div class="grid-3">
-<div class="card">
-<div class="card-icon">😴</div>
-<div class="card-title">Пасивний донат</div>
-<div class="card-text">Звичайний збір — натиснув кнопку і забув. Немає залученості, немає спільноти, немає причини повертатись.</div>
-</div>
-<div class="card">
-<div class="card-icon">🌍</div>
-<div class="card-title">Немає UA платформи</div>
-<div class="card-text">GoFundMe не працює в Україні. Dobro.ua не має ігрової механіки. Нікого з трьома китами одночасно.</div>
-</div>
-<div class="card">
-<div class="card-icon">💔</div>
-<div class="card-title">Втома від війни</div>
-<div class="card-text">Люди хочуть допомагати, але потребують позитивного досвіду. Виклик і перемога — це радість і допомога одночасно.</div>
-</div>
-</div>
-</div>
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="sec-tag lang-uk-inline">Як це працює</div>
+  <div class="sec-tag lang-en-inline">How It Works</div>
+  <h2 class="sec-title">
+    <span class="lang-uk-inline">Чотири кроки до<br><em>доброго результату</em></span>
+    <span class="lang-en-inline">Four steps to<br><em>good results</em></span>
+  </h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div>
+        <div class="step-title lang-uk-inline">Виклик запускається</div>
+        <div class="step-title lang-en-inline">Challenge Starts</div>
+        <div class="step-desc lang-uk-inline">Благодійний фонд або користувач створює соціальний виклик. Учасники роблять аналітичний внесок — Digital Participation Pack.</div>
+        <div class="step-desc lang-en-inline">A charity fund or user creates a social challenge. Participants make an analytical contribution — Digital Participation Pack.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div>
+        <div class="step-title lang-uk-inline">Миттєвий розподіл</div>
+        <div class="step-title lang-en-inline">Instant Split</div>
+        <div class="step-desc lang-uk-inline">35% автоматично йдуть до фонду-партнера. 50% — у пул винагороди аналітиків. 15% — платформа.</div>
+        <div class="step-desc lang-en-inline">35% goes instantly to the partner fund. 50% — into the analyst reward pool. 15% — platform fee.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div>
+        <div class="step-title lang-uk-inline">Аналіз і участь</div>
+        <div class="step-title lang-en-inline">Analysis & Participation</div>
+        <div class="step-desc lang-uk-inline">Учасники використовують AI-інструменти ARVEN для аналізу події і роблять свій прогноз. Це гра навичок, не удача.</div>
+        <div class="step-desc lang-en-inline">Participants use ARVEN AI tools to analyze the event and make their prediction. This is a Game of Skill, not chance.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div>
+        <div class="step-title lang-uk-inline">Добро трапляється</div>
+        <div class="step-title lang-en-inline">Good Just Happens</div>
+        <div class="step-desc lang-uk-inline">Найточніші аналітики отримують 50% пулу. Фонд отримав 35%. Всі учасники зробили добро — просто граючи.</div>
+        <div class="step-desc lang-en-inline">The most accurate analysts receive 50% of the pool. The fund received 35%. Everyone participated in good — just by playing.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="wrap" id="how" style="padding-top:0;">
-<div class="sec-tag">Рішення</div>
-<h2 class="sec-title">Як працює<br><em>DARIVS</em></h2>
-<div class="steps">
-<div class="step">
-<div class="step-n">01</div>
-<div>
-<div class="step-title">Виклик запускається</div>
-<div class="step-desc">Благодійний фонд або користувач створює виклик — добрий вчинок, спортивне досягнення, творче завдання. Учасники роблять внески.</div>
-</div>
-</div>
-<div class="step">
-<div class="step-n">02</div>
-<div>
-<div class="step-title">Люди беруть участь</div>
-<div class="step-desc">Учасники виконують завдання і публікують у соцленті. Спільнота голосує, підтримує, ділиться. Добро стає видимим.</div>
-</div>
-</div>
-<div class="step">
-<div class="step-n">03</div>
-<div>
-<div class="step-title">Переможець отримує приз</div>
-<div class="step-desc">55% зібраного пулу — переможцю. 35% — благодійному фонду-партнеру. Кожен виклик реально допомагає Україні.</div>
-</div>
-</div>
-<div class="step">
-<div class="step-n">04</div>
-<div>
-<div class="step-title">Добро трапляється</div>
-<div class="step-desc">Люди повертаються знову — бо це радість, а не обов'язок. Платформа будує культуру добрих вчинків.</div>
-</div>
-</div>
-</div>
-</div>
-
+<!-- BAND -->
 <div class="band">
-<p class="formula">Люди беруть участь у виклику —<br><strong>добро трапляється само.</strong></p>
-<p class="formula-note">DARIVS · Good Just Happens · Київ, Україна · 2026</p>
+  <p class="formula">
+    <span class="lang-uk-inline">Люди беруть участь у виклику —<br><strong>добро трапляється само.</strong></span>
+    <span class="lang-en-inline">People participate in the challenge —<br><strong>good just happens.</strong></span>
+  </p>
+  <p class="formula-note">DARIVS · Social Impact Prediction Platform · 2026</p>
 </div>
 
-<div class="wrap" id="partners">
-<div class="sec-tag">Партнери</div>
-<h2 class="sec-title">Благодійні організації<br><em>які вже з нами</em></h2>
-<div class="partners-grid">
-<div class="partner">
-<div class="partner-country">Україна</div>
-<div class="partner-name">БФ «Слава Україні»</div>
-<div class="partner-desc">Підтримка постраждалих від війни, допомога переселенцям та відновлення громад.</div>
-</div>
-<div class="partner">
-<div class="partner-country">Німеччина</div>
-<div class="partner-name">Makkabi Leichlingen e.V.</div>
-<div class="partner-desc">Спортивний клуб єврейської громади, що підтримує українських біженців через спорт та інтеграцію.</div>
-</div>
-<div class="partner">
-<div class="partner-country">Німеччина</div>
-<div class="partner-name">Davidstern e.V.</div>
-<div class="partner-desc">Організація підтримки єврейської громади та допомоги українцям у Німеччині.</div>
-</div>
-</div>
-</div>
+<!-- SPLIT MODEL -->
+<section class="section" id="split">
+  <div class="sec-tag lang-uk-inline">Модель розподілу</div>
+  <div class="sec-tag lang-en-inline">Distribution Model</div>
+  <h2 class="sec-title">
+    <span class="lang-uk-inline">Digital Participation Pack<br><em>50 / 35 / 15</em></span>
+    <span class="lang-en-inline">Digital Participation Pack<br><em>50 / 35 / 15</em></span>
+  </h2>
+  <div class="split-section">
+    <div class="split-title">
+      <span class="lang-uk-inline">Кожен внесок розподіляється</span>
+      <span class="lang-en-inline">Every contribution is split</span>
+    </div>
+    <div class="split-row">
+      <div class="split-item">
+        <div class="split-pct">50%</div>
+        <div class="split-lbl lang-uk-inline">Аналітикам</div>
+        <div class="split-lbl lang-en-inline">To Analysts</div>
+      </div>
+      <div class="split-item">
+        <div class="split-pct">35%</div>
+        <div class="split-lbl lang-uk-inline">Фонду</div>
+        <div class="split-lbl lang-en-inline">To Fund</div>
+      </div>
+      <div class="split-item">
+        <div class="split-pct">15%</div>
+        <div class="split-lbl lang-uk-inline">Платформа</div>
+        <div class="split-lbl lang-en-inline">Platform</div>
+      </div>
+    </div>
+    <p class="split-note lang-uk-inline">Прозора модель. 100% внеску має чітке призначення. Платформа є технологічним шлюзом, не зберігає кошти учасників.</p>
+    <p class="split-note lang-en-inline">Transparent model. 100% of every contribution has a clear destination. The platform is a technology gateway, not a fund holder.</p>
+  </div>
+</section>
 
-<div class="wrap" style="padding-top:0;">
-<div class="split-box">
-<div class="split-title">Розподіл коштів</div>
-<div class="split-row">
-<div class="split-item">
-<div class="split-pct">55%</div>
-<div class="split-lbl">Переможець</div>
-</div>
-<div class="split-item">
-<div class="split-pct">35%</div>
-<div class="split-lbl">Фонд</div>
-</div>
-<div class="split-item">
-<div class="split-pct">10%</div>
-<div class="split-lbl">Платформа</div>
-</div>
-</div>
-<p class="split-note">Розподіл від загальної суми зборів. Прозора модель — кожен учасник бачить куди йдуть кошти.</p>
-</div>
-</div>
+<!-- PARTNERS -->
+<section class="section" id="partners" style="padding-top:0;">
+  <div class="sec-tag lang-uk-inline">Партнери</div>
+  <div class="sec-tag lang-en-inline">Partners</div>
+  <h2 class="sec-title">
+    <span class="lang-uk-inline">Благодійні організації<br><em>які з нами</em></span>
+    <span class="lang-en-inline">Charitable organizations<br><em>already with us</em></span>
+  </h2>
+  <div class="partners-grid">
+    <div class="partner">
+      <div class="partner-country lang-uk-inline">Україна</div>
+      <div class="partner-country lang-en-inline">Ukraine</div>
+      <div class="partner-name">БФ «Слава Україні»</div>
+      <div class="partner-desc lang-uk-inline">Підтримка постраждалих від війни, допомога переселенцям та відновлення громад.</div>
+      <div class="partner-desc lang-en-inline">Supporting war victims, helping displaced people and rebuilding communities.</div>
+    </div>
+    <div class="partner">
+      <div class="partner-country lang-uk-inline">Німеччина</div>
+      <div class="partner-country lang-en-inline">Germany</div>
+      <div class="partner-name">Maccabi Leichlingen e.V.</div>
+      <div class="partner-desc lang-uk-inline">Спортивний клуб єврейської громади, що підтримує українських біженців через спорт та інтеграцію.</div>
+      <div class="partner-desc lang-en-inline">Jewish community sports club supporting Ukrainian refugees through sport and integration.</div>
+    </div>
+    <div class="partner">
+      <div class="partner-country lang-uk-inline">Німеччина</div>
+      <div class="partner-country lang-en-inline">Germany</div>
+      <div class="partner-name">Davidstern e.V.</div>
+      <div class="partner-desc lang-uk-inline">Організація підтримки єврейської громади та допомоги українцям у Німеччині.</div>
+      <div class="partner-desc lang-en-inline">Organization supporting the Jewish community and helping Ukrainians in Germany.</div>
+    </div>
+  </div>
+</section>
 
-<div class="wrap" style="padding-top:48px; padding-bottom:80px;">
-<div class="pilot">
-<div class="diamond"></div>
-<div class="pilot-title">Стати партнером</div>
-<p class="pilot-desc">Ваш фонд отримує постійний потік залучених донорів через ігрову механіку. Без витрат на маркетинг.</p>
-<ul class="pilot-list">
-<li>Ваш фонд — офіційний бенефіціар викликів</li>
-<li>35% від кожного зібраного пулу</li>
-<li>Видимість у соцленті та комунікаціях</li>
-<li>Технічна інтеграція безкоштовно</li>
-</ul>
-<a href="mailto:hello@arvend.io" class="btn btn-gold">Обговорити партнерство</a>
-<div class="diamond" style="margin:24px auto 0;"></div>
-</div>
-</div>
+<!-- WHY -->
+<section class="section" style="padding-top:0;">
+  <div class="sec-tag lang-uk-inline">Чому DARIVS</div>
+  <div class="sec-tag lang-en-inline">Why DARIVS</div>
+  <h2 class="sec-title">
+    <span class="lang-uk-inline">Єдина платформа з<br><em>трьома китами</em></span>
+    <span class="lang-en-inline">The only platform with<br><em>three pillars</em></span>
+  </h2>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-icon">🎯</div>
+      <div class="card-title lang-uk-inline">Соціальна лента</div>
+      <div class="card-title lang-en-inline">Social Feed</div>
+      <div class="card-desc lang-uk-inline" style="font-size:.76rem;line-height:1.75;color:#9b7fd4;font-weight:300;">Спільнота учасників, публікації добрих вчинків, лідерборд і визнання.</div>
+      <div class="card-desc lang-en-inline" style="font-size:.76rem;line-height:1.75;color:#9b7fd4;font-weight:300;">Community of participants, good deeds posts, leaderboard and recognition.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💛</div>
+      <div class="card-title lang-uk-inline">Донати</div>
+      <div class="card-title lang-en-inline">Donations</div>
+      <div class="card-desc lang-uk-inline" style="font-size:.76rem;line-height:1.75;color:#9b7fd4;font-weight:300;">35% кожного внеску йде напряму до верифікованого благодійного фонду.</div>
+      <div class="card-desc lang-en-inline" style="font-size:.76rem;line-height:1.75;color:#9b7fd4;font-weight:300;">35% of every contribution goes directly to a verified charitable fund.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <div class="card-title lang-uk-inline">Виклики + Гейміфікація</div>
+      <div class="card-title lang-en-inline">Challenges + Gamification</div>
+      <div class="card-desc lang-uk-inline" style="font-size:.76rem;line-height:1.75;color:#9b7fd4;font-weight:300;">Змагальний дух, аналітичні прогнози, винагорода за точність. Добро стає захопливим.</div>
+      <div class="card-desc lang-en-inline" style="font-size:.76rem;line-height:1.75;color:#9b7fd4;font-weight:300;">Competitive spirit, analytical predictions, rewards for accuracy. Good becomes exciting.</div>
+    </div>
+  </div>
+</section>
 
-<div class="contact-grid" id="contact">
-<div>
-<h2 class="c-title">Добро<br><em>трапляється</em></h2>
-<p class="c-desc">DARIVS — соціальна платформа заснована командою ARVEN AI Agency. Будуємо культуру добрих вчинків в Україні та діаспорі.</p>
-<p style="font-size:.62rem;letter-spacing:3px;color:#d4af37;text-transform:uppercase;">Darivs OÜ · Estonia · darivs.com</p>
-</div>
-<div class="clinks">
-<a href="mailto:hello@arvend.io" class="clink"><span class="clbl">Email</span>hello@arvend.io</a>
-<a href="https://t.me/arven_agency" class="clink"><span class="clbl">Telegram</span>@arven_agency</a>
-<a href="https://linkedin.com/in/eduardarbitman" class="clink"><span class="clbl">LinkedIn</span>Eduard Arbitman</a>
-<a href="mailto:hello@arvend.io" class="btn btn-gold" style="text-align:center;margin-top:10px;">Написати нам</a>
-</div>
+<!-- CONTACT -->
+<div class="contact-wrap" id="contact">
+  <div>
+    <h2 class="c-title">
+      <span class="lang-uk-inline">Стати<br><em>партнером</em></span>
+      <span class="lang-en-inline">Become<br><em>a Partner</em></span>
+    </h2>
+    <p class="c-desc lang-uk-inline">DARIVS — соціальна платформа від команди ARVEN AI Agency. Будуємо культуру добрих вчинків в Україні та діаспорі.</p>
+    <p class="c-desc lang-en-inline">DARIVS — a social platform by ARVEN AI Agency. Building a culture of good deeds in Ukraine and the diaspora.</p>
+    <p style="font-size:.62rem;letter-spacing:3px;color:#d4af37;text-transform:uppercase;">Darivs OÜ · Estonia · 2026</p>
+  </div>
+  <div class="clinks">
+    <a href="mailto:hello@arvend.io" class="clink"><span class="clbl">Email</span>hello@arvend.io</a>
+    <a href="https://t.me/arven_agency" class="clink"><span class="clbl">Telegram</span>@arven_agency</a>
+    <a href="https://linkedin.com/in/eduardarbitman" class="clink"><span class="clbl">LinkedIn</span>Eduard Arbitman</a>
+    <a href="mailto:hello@arvend.io" class="btn btn-gold" style="text-align:center;margin-top:10px;">
+      <span class="lang-uk-inline">Написати нам</span>
+      <span class="lang-en-inline">Contact Us</span>
+    </a>
+  </div>
 </div>
 
 <footer>
-<div>
-<div class="f-logo">DARIVS</div>
-<div class="f-tag">Good Just Happens</div>
-</div>
-<div class="f-info">
-DARIVS · darivs.com<br>
-Darivs OÜ · Estonia<br>
-Київ, Україна · 2026
-</div>
+  <div>
+    <div class="f-logo">DARIVS</div>
+    <div class="f-tag">Good Just Happens</div>
+  </div>
+  <div class="f-info">
+    DARIVS · Social Impact Prediction Platform<br>
+    Darivs OÜ · Estonia · 2026<br>
+    Powered by ARVEN AI Agency
+  </div>
 </footer>
 
+<script>
+function toggleLang() {
+  document.body.classList.toggle('en');
+}
+</script>
+
 </body>
+</html>
